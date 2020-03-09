@@ -266,3 +266,150 @@ impl From<EventType> for String {
         event_type.to_string()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use serde_json::{from_str, to_string};
+
+    use super::*;
+
+    macro_rules! serde_eq {
+        ($type:ty, $de:literal, $se:expr) => {
+            assert_eq!($de, to_string(&$se).unwrap());
+            assert_eq!(from_str::<$type>($de).unwrap(), $se);
+        };
+    }
+
+    #[allow(clippy::cognitive_complexity)]
+    #[test]
+    fn event_types_serialize_and_deserialize_from_display_form() {
+        serde_eq!(EventType, r#""m.call.answer""#, EventType::CallAnswer);
+        serde_eq!(
+            EventType,
+            r#""m.call.candidates""#,
+            EventType::CallCandidates
+        );
+        serde_eq!(EventType, r#""m.call.hangup""#, EventType::CallHangup);
+        serde_eq!(EventType, r#""m.call.invite""#, EventType::CallInvite);
+        serde_eq!(EventType, r#""m.direct""#, EventType::Direct);
+        serde_eq!(EventType, r#""m.dummy""#, EventType::Dummy);
+        serde_eq!(
+            EventType,
+            r#""m.forwarded_room_key""#,
+            EventType::ForwardedRoomKey
+        );
+        serde_eq!(EventType, r#""m.fully_read""#, EventType::FullyRead);
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.accept""#,
+            EventType::KeyVerificationAccept
+        );
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.cancel""#,
+            EventType::KeyVerificationCancel
+        );
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.key""#,
+            EventType::KeyVerificationKey
+        );
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.mac""#,
+            EventType::KeyVerificationMac
+        );
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.request""#,
+            EventType::KeyVerificationRequest
+        );
+        serde_eq!(
+            EventType,
+            r#""m.key.verification.start""#,
+            EventType::KeyVerificationStart
+        );
+        serde_eq!(
+            EventType,
+            r#""m.ignored_user_list""#,
+            EventType::IgnoredUserList
+        );
+        serde_eq!(EventType, r#""m.presence""#, EventType::Presence);
+        serde_eq!(EventType, r#""m.push_rules""#, EventType::PushRules);
+        serde_eq!(EventType, r#""m.receipt""#, EventType::Receipt);
+        serde_eq!(EventType, r#""m.room.aliases""#, EventType::RoomAliases);
+        serde_eq!(EventType, r#""m.room.avatar""#, EventType::RoomAvatar);
+        serde_eq!(
+            EventType,
+            r#""m.room.canonical_alias""#,
+            EventType::RoomCanonicalAlias
+        );
+        serde_eq!(EventType, r#""m.room.create""#, EventType::RoomCreate);
+        serde_eq!(EventType, r#""m.room.encrypted""#, EventType::RoomEncrypted);
+        serde_eq!(
+            EventType,
+            r#""m.room.encryption""#,
+            EventType::RoomEncryption
+        );
+        serde_eq!(
+            EventType,
+            r#""m.room.guest_access""#,
+            EventType::RoomGuestAccess
+        );
+        serde_eq!(
+            EventType,
+            r#""m.room.history_visibility""#,
+            EventType::RoomHistoryVisibility
+        );
+        serde_eq!(
+            EventType,
+            r#""m.room.join_rules""#,
+            EventType::RoomJoinRules
+        );
+        serde_eq!(EventType, r#""m.room.member""#, EventType::RoomMember);
+        serde_eq!(EventType, r#""m.room.message""#, EventType::RoomMessage);
+        serde_eq!(
+            EventType,
+            r#""m.room.message.feedback""#,
+            EventType::RoomMessageFeedback
+        );
+        serde_eq!(EventType, r#""m.room.name""#, EventType::RoomName);
+        serde_eq!(
+            EventType,
+            r#""m.room.pinned_events""#,
+            EventType::RoomPinnedEvents
+        );
+        serde_eq!(
+            EventType,
+            r#""m.room.power_levels""#,
+            EventType::RoomPowerLevels
+        );
+        serde_eq!(EventType, r#""m.room.redaction""#, EventType::RoomRedaction);
+        serde_eq!(
+            EventType,
+            r#""m.room.server_acl""#,
+            EventType::RoomServerAcl
+        );
+        serde_eq!(
+            EventType,
+            r#""m.room.third_party_invite""#,
+            EventType::RoomThirdPartyInvite
+        );
+        serde_eq!(EventType, r#""m.room.tombstone""#, EventType::RoomTombstone);
+        serde_eq!(EventType, r#""m.room.topic""#, EventType::RoomTopic);
+        serde_eq!(EventType, r#""m.room_key""#, EventType::RoomKey);
+        serde_eq!(
+            EventType,
+            r#""m.room_key_request""#,
+            EventType::RoomKeyRequest
+        );
+        serde_eq!(EventType, r#""m.sticker""#, EventType::Sticker);
+        serde_eq!(EventType, r#""m.tag""#, EventType::Tag);
+        serde_eq!(EventType, r#""m.typing""#, EventType::Typing);
+        serde_eq!(
+            EventType,
+            r#""io.ruma.test""#,
+            EventType::Custom("io.ruma.test".to_string())
+        );
+    }
+}

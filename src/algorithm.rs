@@ -67,7 +67,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn algorithms_serialize_and_deserialize_from_display_form() {
+    fn serialize_and_deserialize_from_display_form() {
         serde_eq!(r#""m.megolm.v1.aes-sha2""#, Algorithm::MegolmV1AesSha2);
         serde_eq!(
             r#""m.olm.v1.curve25519-aes-sha2""#,

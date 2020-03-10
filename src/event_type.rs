@@ -273,7 +273,7 @@ mod tests {
 
     #[allow(clippy::cognitive_complexity)]
     #[test]
-    fn event_types_serialize_and_deserialize_from_display_form() {
+    fn serialize_and_deserialize_from_display_form() {
         serde_eq!(r#""m.call.answer""#, EventType::CallAnswer);
         serde_eq!(r#""m.call.candidates""#, EventType::CallCandidates);
         serde_eq!(r#""m.call.hangup""#, EventType::CallHangup);

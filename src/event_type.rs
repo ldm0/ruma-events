@@ -269,8 +269,6 @@ impl From<EventType> for String {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::{from_str, to_string};
-
     use super::*;
 
     #[allow(clippy::cognitive_complexity)]

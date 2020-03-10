@@ -133,9 +133,6 @@ pub use self::{custom::CustomEvent, custom_room::CustomRoomEvent, custom_state::
 
 #[macro_use]
 mod macros;
-#[cfg(test)]
-#[macro_use]
-mod test_util;
 mod algorithm;
 mod event_type;
 mod util;

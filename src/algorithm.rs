@@ -68,27 +68,14 @@ mod tests {
 
     use super::*;
 
-    macro_rules! serde_eq {
-        ($type:ty, $de:literal, $se:expr) => {
-            assert_eq!($de, to_string(&$se).unwrap());
-            assert_eq!(from_str::<$type>($de).unwrap(), $se);
-        };
-    }
-
     #[test]
     fn algorithms_serialize_and_deserialize_from_display_form() {
+        serde_eq!(r#""m.megolm.v1.aes-sha2""#, Algorithm::MegolmV1AesSha2);
         serde_eq!(
-            Algorithm,
-            r#""m.megolm.v1.aes-sha2""#,
-            Algorithm::MegolmV1AesSha2
-        );
-        serde_eq!(
-            Algorithm,
             r#""m.olm.v1.curve25519-aes-sha2""#,
             Algorithm::OlmV1Curve25519AesSha2
         );
         serde_eq!(
-            Algorithm,
             r#""io.ruma.test""#,
             Algorithm::Custom("io.ruma.test".to_string())
         );

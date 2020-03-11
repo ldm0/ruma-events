@@ -168,6 +168,9 @@ pub enum MembershipChange {
     /// `displayname` or `avatar_url` changed.
     ProfileChanged,
 
+    /// Not implemented.
+    NotImplemented,
+
     /// Additional variants may be added in the future and will not be considered breaking changes
     /// to ruma-events.
     #[doc(hidden)]
@@ -208,7 +211,10 @@ impl MemberEvent {
             (Join, Ban) => MembershipChange::KickedAndBanned,
             (Leave, Invite) => MembershipChange::Invited,
             (Ban, Leave) => MembershipChange::Unbanned,
-            _ => MembershipChange::__Nonexhaustive,
+            (Knock, _) | (_, Knock) => MembershipChange::NotImplemented,
+            (__Nonexhaustive, _) | (_, __Nonexhaustive) => {
+                panic!("__Nonexhaustive enum variant is not intended for use.")
+            }
         }
     }
 }
